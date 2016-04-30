@@ -1,0 +1,85 @@
+{
+	"json":{
+		"input":{			
+			"type":"number",
+			"title":"this is a number title",
+			"minLength":1,
+			"default":2,
+			"enum":[
+				1,
+				2
+			]
+		},
+
+		"output":[]
+	},
+
+	"jsonWithoutTitle":{
+		"input":{			
+			"type":"number",
+			"minLength":1,
+			"default":2,
+			"enum":[
+				1,
+				2
+			]
+		},
+		"output":[{
+			"message":"type number should have 'title' key.",
+			"path":[]
+		}]
+	},
+
+	"jsonWithWrongDefault":{
+		"input":{
+			"type":"number",
+			"title":"this is a number title",
+			"minLength":1,
+			"default":false,
+			"enum":[
+				1,
+				2
+			]
+		},
+		"output":[{
+			"message":"default key should be a number.",
+			"path":[]
+		}]
+	},
+
+	"jsonWithWrongEnumType":{
+		"input":{			
+			"type":"number",
+			"title":"this is a number title",
+			"minLength":1,
+			"default":2,
+			"enum":{
+				"guru"  :"guru",
+				"test"  :"test",
+				"hello" :"hello"
+			}
+		},
+		"output":[{
+			"message":"enum key should be an array.",
+			"path":[]
+		}]
+	},
+
+	"jsonWithWrongEnumValue":{
+		"input":{
+			"type":"number",
+			"title":"this is a number title",
+			"minLength":1,
+			"default":2,
+			"enum":[
+				1,
+				false
+			]
+		},
+		"output":[{
+			"message":"1 value of enum should be an number.",
+			"path":["enum",1]
+		}]
+	}
+
+}

@@ -1,0 +1,11 @@
+{
+	"env":"dev",
+	"dev":{
+		"mongo_server_url":"mongodb://guru:guru@ds013991.mlab.com:13991/api-testing-framework",
+		"flow_server_uri" : "https://stag-flow.built.io",
+		"auth":{
+			"user": "flow",
+		    "pass": "2p)F&kRn!L"
+		}
+	}
+}

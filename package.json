@@ -1,0 +1,25 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "flow api testing framework server code.",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha ./validators/test",
+    "dev": "nodemon worker.js"
+  },
+  
+  "author": "Built.io",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "cors": "^2.7.1",
+    "express": "^4.13.4",
+    "mongodb": "^2.1.16",
+    "request": "^2.70.0",
+    "shortid": "^2.2.6",
+    "when": "^3.7.7"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0"
+  }
+}

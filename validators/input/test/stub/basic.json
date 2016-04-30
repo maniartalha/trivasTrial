@@ -1,0 +1,675 @@
+{
+	"jsonSmartSheet":{
+		"input":{
+	        "title": "Create Sheet",
+	        "type": "object",
+	        "properties": {
+	            "access_token" : {
+	                "type" : "string",
+	                "title" : "Smartsheet Access Token",
+	                "oauth" : "smartsheet",
+	                "minLength" : 1
+	            },
+	            "destination" : {
+	                "title" : "Sheet destination",
+	                "type" : "object",
+	                "oneOf" : [
+	                    {
+	                        "title" : "Sheet Folder",
+	                        "type" : "object",
+	                        "properties" : {
+	                            "type": {
+	                                "type": "string",
+	                                "readonly": true,
+	                                "options": {
+	                                    "hidden": true
+	                                },
+	                                "enum": [""]
+	                            }
+	                        }
+	                    },{
+	                        "title" : "Specific folder",
+	                        "type" : "object",
+	                        "properties" : {
+	                            "type": {
+	                                "type": "string",
+	                                "readonly": true,
+	                                "options": {
+	                                    "hidden": true
+	                                },
+	                                "enum": ["/folders"]
+	                            },
+	                            "folderId" : {
+	                                "title" : "Folder ID",
+	                                "type" : "string",
+	                                "minLength" : 1
+	                            }
+	                        }
+	                    }, {
+	                        "title" : "Workspace",
+	                        "type" : "object",
+	                        "properties" : {
+	                            "type": {
+	                                "type": "string",
+	                                "readonly": true,
+	                                "options": {
+	                                    "hidden": true
+	                                },
+	                                "enum": ["/workspaces"]
+	                            },
+	                            "workspaceId" : {
+	                                "title" : "Workspace ID",
+	                                "type" : "string",
+	                                "minLength" : 1
+	                            }
+	                        }
+	                    }
+	                ]
+	            },
+	            "name" : {
+	                "title" : "Sheet Name",
+	                "type" : "string",
+	                "minLength" : 1
+	            },
+	            "columns" : {
+	                "type": "array",
+	                "title": "Columns",
+	                "minItems": 1,
+	                "items": {
+	                    "type": "object",
+	                    "title": "Column",
+	                    "properties": {
+	                        "title" : {
+	                            "title" : "title",
+	                            "type" : "string",
+	                            "minLength" : 1
+	                        },
+	                        "primary" : {
+	                            "title" : "Is primary column",
+	                            "type" : "boolean"
+	                        },
+	                        "type" : {
+	                            "title" : "Select column type",
+	                            "type" : "object",
+	                            "oneOf" : [
+	                                {
+	                                    "title" : "Text number",
+	                                    "type" : "object",
+	                                    "properties" : {
+	                                        "type": {
+	                                            "type": "string",
+	                                            "readonly": true,
+	                                            "options": {
+	                                                "hidden": true
+	                                            },
+	                                            "enum": ["TEXT_NUMBER"]
+	                                        },
+	                                        "systemColumn" : {
+	                                            "title" : "System column type",
+	                                            "type" : "object",
+	                                            "oneOf" : [
+	                                                {
+	                                                    "title" : "N/A",
+	                                                    "type" : "object",
+	                                                    "properties" : {
+	                                                        "systemColumnType" : {
+	                                                            "type": "string",
+	                                                            "readonly": true,
+	                                                            "options": {
+	                                                                "hidden": true
+	                                                            },
+	                                                            "enum": [""]
+	                                                        }
+	                                                    }
+	                                                },
+	                                                {
+	                                                    "title" : "Auto Number Format",
+	                                                    "type" : "object",
+	                                                    "properties" : {
+	                                                        "systemColumnType" : {
+	                                                            "type": "string",
+	                                                            "readonly": true,
+	                                                            "options": {
+	                                                                "hidden": true
+	                                                            },
+	                                                            "enum": ["AUTO_NUMBER"]
+	                                                        },
+	                                                        "autoNumberFormat": {
+	                                                            "type": "object",
+	                                                            "title": "Auto number format",
+	                                                            "properties" : {
+	                                                                "prefix": {
+	                                                                    "title": "Prefix",
+	                                                                    "type": "string"
+	                                                                },
+	                                                                "suffix": {
+	                                                                    "title": "Suffix",
+	                                                                    "type": "string"
+	                                                                },
+	                                                                "fill": {
+	                                                                    "title": "Fill",
+	                                                                    "description" : "Indicates zero-padding. Must be between 0 and 10 “0” (zero) characters",
+	                                                                    "type": "string"
+	                                                                },
+	                                                                "startingNumber": {
+	                                                                    "title": "Starting number",
+	                                                                    "description" : "The starting number for the auto-id",
+	                                                                    "type": "string"
+	                                                                }
+	                                                            }
+	                                                        }
+	                                                    }
+	                                                }
+	                                            ]
+	                                        }
+	                                    }
+	                                },{
+	                                    "title" : "Date",
+	                                    "type" : "object",
+	                                    "properties" : {
+	                                        "type": {
+	                                            "type": "string",
+	                                            "readonly": true,
+	                                            "options": {
+	                                                "hidden": true
+	                                            },
+	                                            "enum": ["DATE"]
+	                                        }
+	                                    }
+	                                }, {
+	                                    "title" : "Date Time",
+	                                    "type" : "object",
+	                                    "properties" : {
+	                                        "type": {
+	                                            "type": "string",
+	                                            "readonly": true,
+	                                            "options": {
+	                                                "hidden": true
+	                                            },
+	                                            "enum": ["DATETIME"]
+	                                        },
+	                                        "systemColumnType" : {
+	                                            "title" : "System column type",
+	                                            "type" : "string",
+	                                            "enum" : [
+	                                                "",
+	                                                "MODIFIED_DATE",
+	                                                "CREATED_DATE"
+	                                            ]
+	                                        }
+	                                    }
+	                                },{
+	                                    "title" : "Contact list",
+	                                    "type" : "object",
+	                                    "properties" : {
+	                                        "type": {
+	                                            "type": "string",
+	                                            "readonly": true,
+	                                            "options": {
+	                                                "hidden": true
+	                                            },
+	                                            "enum": ["CONTACT_LIST"]
+	                                        },
+	                                        "systemColumnType" : {
+	                                            "title" : "System column type",
+	                                            "type" : "string",
+	                                            "enum" : [
+	                                                "",
+	                                                "MODIFIED_BY",
+	                                                "CREATED_BY"
+	                                            ]
+	                                        }
+	                                    }
+	                                },
+	                                {
+	                                    "title" : "Checkbox",
+	                                    "type" : "object",
+	                                    "properties" : {
+	                                        "type": {
+	                                            "type": "string",
+	                                            "readonly": true,
+	                                            "options": {
+	                                                "hidden": true
+	                                            },
+	                                            "enum": ["CHECKBOX"]
+	                                        },
+	                                        "symbol" : {
+	                                            "title" : "Symbol",
+	                                            "type" : "string",
+	                                            "enum" : [
+	                                                "",
+	                                                "STAR",
+	                                                "FLAG"
+	                                            ]
+	                                        }
+	                                    }
+	                                },{
+	                                    "title" : "Pick list",
+	                                    "type" : "object",
+	                                    "properties" : {
+	                                        "type": {
+	                                            "type": "string",
+	                                            "readonly": true,
+	                                            "options": {
+	                                                "hidden": true
+	                                            },
+	                                            "enum": ["PICKLIST"]
+	                                        },
+	                                        "symbol" : {
+	                                            "title" : "Symbol",
+	                                            "type" : "string",
+	                                            "enum" : [
+	                                                "",
+	                                                "HARVEY_BALLS",
+	                                                "PRIORITY",
+	                                                "RYG",
+	                                                "PRIORITY_HML",
+	                                                "DECISION_SYMBOLS",
+	                                                "DECISION_SHAPES",
+	                                                "VCR",
+	                                                "RYGB",
+	                                                "RYGG",
+	                                                "WEATHER",
+	                                                "PROGRESS",
+	                                                "ARROWS_3_WAY",
+	                                                "ARROWS_4_WAY",
+	                                                "ARROWS_5_WAY",
+	                                                "DIRECTIONS_3_WAY",
+	                                                "DIRECTIONS_4_WAY",
+	                                                "SKI",
+	                                                "SIGNAL",
+	                                                "STAR_RATING",
+	                                                "HEARTS",
+	                                                "MONEY",
+	                                                "EFFORT",
+	                                                "PAIN"
+	                                            ]
+	                                        },
+	                                        "options" : {
+	                                            "title" : "Options available for the column",
+	                                            "description" : "Options cant be used when you are providing symbols",
+	                                            "type" : "array",
+	                                            "items" : {
+	                                                "type" : "string",
+	                                                "title" : "Option"
+	                                            }
+	                                        }
+	                                    }
+	                                }
+	                            ]
+	                        },
+	                        "width": {
+	                            "title": "Width",
+	                            "description" : "width of the column in pixels",
+	                            "type": "string"
+	                        }
+	                    }
+	                }
+	            }
+	        }
+	    },
+    	"output":{
+    		"title":"Basic input validation.",
+    		"error":[]
+    	}
+	},
+
+	"jsonHTTP":{		
+	    "input": {
+	        "type": "object",
+	        "title": "Set HTTP Method  ",
+	        "format": "table",
+	        "properties": {
+	            "url": {
+	                "type": "string",
+	                "minLength": 1,
+	                "title": "URL",
+	                "propertyOrder":1
+	            },
+	            "headers": {
+	                "type": "array",
+	                "title": "Headers",
+	                "format": "table",
+	                "propertyOrder":2,
+	                "items": {
+	                    "type": "object",
+	                    "title": "Headers",
+	                    "properties": {
+	                        "name": {
+	                            "type": "string",
+	                            "title": "Header Key"
+	                        },
+	                        "value": {
+	                            "type": "string",
+	                            "title": "Header Value"
+	                        }
+	                    }
+	                }
+	            },
+	            "query": {
+	                "type": "array",
+	                "title": "URL Params",
+	                "format": "table",
+	                "propertyOrder":3,
+	                "items": {
+	                    "type": "object",
+	                    "title": "URL Params",
+	                    "properties": {
+	                        "name": {
+	                            "type": "string",
+	                            "title": "Param Key"
+	                        },
+	                        "value": {
+	                            "type": "string",
+	                            "title": "Param Value"
+	                        }
+	                    }
+	                }
+	            },
+	            "encoding" : {
+	                "type" : "string",
+	                "title" : "Response Encoding",
+	                "default" : "utf8",
+	                "description" : "Select the encoding type of the file from given list",
+	                "propertyOrder" : 3,
+	                "enum" : [
+	                    "utf8",
+	                    "buffer",
+	                    "binary",
+	                    "hex",
+	                    "ascii",
+	                    "base64"
+	                ]
+	            },
+	            "strictSSL" : {
+	                "type" : "boolean",
+	                "enum" : [ true, false],
+	                "title" : "Reject Unauthorized",
+	                "description" : "requires SSL certificates must be valid in case of https call (default: true)",
+	                "propertyOrder":5
+	            },
+	            "followRedirect" : {
+	                "type" : "boolean",
+	                "enum" : [ true, false],
+	                "default" : true,
+	                "title" : "Follow Redirect",
+	                "description" : "follow HTTP 3xx responses as redirects (default: true).",
+	                "propertyOrder":6
+	            },
+	            "followAllRedirects" : {
+	                "type" : "boolean",
+	                "enum" : [ false, true ],
+	                "default" : false,
+	                "title" : "Follow All Redirects",
+	                "description" : "follow non-GET HTTP 3xx responses as redirects (default: false)",
+	                "propertyOrder":8
+	            }
+	        },
+	        "oneOf": [{
+	            "title": "GET",
+	            "properties": {
+	                "method": {
+	                    "type": "string",
+	                    "readonly": true,
+	                    "options": {
+	                        "hidden": true
+	                    },
+	                    "enum": ["get"]
+	                }
+	            }
+	        }, {
+	            "title": "POST",
+	            "properties": {
+	                "method": {
+	                    "type": "string",
+	                    "readonly": true,
+	                    "options": {
+	                        "hidden": true
+	                    },
+	                    "enum": ["post"]
+	                },
+	                "body": {
+	                    "$ref": "#/definitions/body"
+	                }
+	            }
+	        }, {
+	            "title": "PUT",
+	            "properties": {
+	                "method": {
+	                    "type": "string",
+	                    "readonly": true,
+	                    "options": {
+	                        "hidden": true
+	                    },
+	                    "enum": ["put"]
+	                },
+	                "body": {
+	                    "$ref": "#/definitions/body"
+	                }
+	            }
+	        }, {
+	            "title": "DELETE",
+	            "properties": {
+	                "method": {
+	                    "type": "string",
+	                    "readonly": true,
+	                    "options": {
+	                        "hidden": true
+	                    },
+	                    "enum": ["delete"]
+	                },
+	                "body": {
+	                    "$ref": "#/definitions/body"
+	                }
+	            }
+	        }],
+	            "definitions": {
+	            "body": {
+	                "title": "Set Body Type",
+	                "propertyOrder":4,
+	                "oneOf": [{
+	                    "type": "object",
+	                    "title": "x-www-form-urlencoded",
+	                    "properties": {
+	                        "type": {
+	                            "type": "string",
+	                            "readonly": true,
+	                            "options": {
+	                                "hidden": true
+	                            },
+	                            "enum": ["x-www-form-urlencoded"]
+	                        },
+	                        "content": {
+	                            "type": "array",
+	                            "title": "Body",
+	                            "format": "table",
+	                            "items": {
+	                                "type": "object",
+	                                "title": "Body",
+	                                "properties": {
+	                                    "name": {
+	                                        "type": "string",
+	                                        "title": "Body Name"
+	                                    },
+	                                    "value": {
+	                                        "type": "string",
+	                                        "title": "Body Value"
+	                                    }
+	                                }
+	                            }
+	                        }
+	                    }
+	                }, {
+	                    "type": "object",
+	                    "title": "raw",
+	                    "properties": {
+	                        "type": {
+	                            "type": "string",
+	                            "readonly": true,
+	                            "options": {
+	                                "hidden": true
+	                            },
+	                            "enum": ["raw"]
+	                        },
+	                        "content_raw": {
+	                            "type": "string",
+	                            "title": "Body",
+	                            "format": "textarea"
+	                        }
+	                    }
+	                }]
+	            }
+	        }
+	    },
+	    "output":{
+    		"title":"Basic input validation.",
+    		"error":[
+				{
+					"message": "0 Object of oneOf don't have a type.",
+					"path": [
+						"oneOf",
+						0
+					]
+				},
+				{
+				"message": "1 Object of oneOf don't have a type.",
+					"path": [
+						"oneOf",
+						1
+					]
+				},
+				{
+				"message": "2 Object of oneOf don't have a type.",
+					"path": [
+						"oneOf",
+						2
+					]
+				},
+				{
+				"message": "3 Object of oneOf don't have a type.",
+					"path": [
+						"oneOf",
+						3
+					]
+				}
+			]
+    	}
+	},
+
+	"jsonOkta":{		
+	    "input": {
+	        "title": "Get Events",
+	        "type": "object",
+	        "properties": {
+	            "connection": {
+	                "title": "Okta Connection",
+	                "type": "string",
+	                "minLength": 1,
+	                "connection": "okta",
+	                "propertyOrder": 1
+	            },
+	            "filter_category": {
+	                "type": "object",
+	                "title": "Filter Events",
+	                "oneOf": [
+	                    {
+	                        "type": "object",
+	                        "title": "Get events",
+	                        "properties": {
+	                            "limit": {
+	                                "type": "string",
+	                                "title": "Limit",
+	                                "description": "Enter limit in digits. Specifies the number of results to page."
+	                            }
+	                        }
+	                    },
+	                    {
+	                        "type": "object",
+	                        "title": "UserID based",
+	                        "description": "Get events of user",
+	                        "properties": {
+	                            "limit": {
+	                                "type": "string",
+	                                "title": "Limit",
+	                                "description": "Enter limit in digits. Specifies the number of results to page."
+	                            },
+	                            "userID": {
+	                                "type": "string",
+	                                "title": "user ID",
+	                                "minLength": 1,
+	                                "description": "Unique key for user",
+	                                "lookup":{
+	                                    "id":"o2",
+	                                    "service":"okta",
+	                                    "auth":"connection",
+	                                    "dependencies":["connection"]
+	                                }
+	                            }
+	                        }
+	                    },
+	                    {
+	                        "type": "object",
+	                        "title": "Date based",
+	                        "description": "Get events after Date",
+	                        "properties": {
+	                            "limit": {
+	                                "type": "string",
+	                                "title": "Limit",
+	                                "description": "Enter limit in digits. Specifies the number of results to page."
+	                            },
+	                            "date": {
+	                                "title": "Date",
+	                                "type": "string",
+	                                "format": "date",
+	                                "minLength": 1,
+	                                "description": "Enter manual date in YYYY-MM-DD format, according to date criteria"
+	                            }
+	                        }
+	                    },
+	                    {
+	                        "type": "object",
+	                        "title": "AppID and UserID",
+	                        "description": "Get Events by Type for App and User",
+	                        "properties": {
+	                            "limit": {
+	                                "type": "string",
+	                                "title": "Limit",
+	                                "description": "Enter limit in digits. Specifies the number of results to page."
+	                            },
+	                            "userID": {
+	                                "type": "string",
+	                                "title": "user ID",
+	                                "minLength": 1,
+	                                "description": "Unique key for user",
+	                                "lookup":{
+	                                    "id":"o2",
+	                                    "service":"okta",
+	                                    "auth":"connection",
+	                                    "dependencies":["connection"]
+	                                }
+
+	                            },
+	                            "appID": {
+	                                "type": "string",
+	                                "title": "Application ID",
+	                                "minLength": 1,
+	                                "description": "Unique key for application",
+	                                "lookup":{
+	                                    "id":"o1",
+	                                    "service":"okta",
+	                                    "auth":"connection",
+	                                    "dependencies":["connection"]
+	                                }
+	                            }
+	                        }
+	                    }
+	                ]
+	            }
+	        }
+	    },
+	    "output":{
+    		"title":"Basic input validation.",
+    		"error":[]
+    	}
+	}
+}

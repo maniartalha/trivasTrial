@@ -1,0 +1,176 @@
+{
+	"json":{
+		"input":[{
+			"type":"string",
+			"title":"this is string inside oneOf"
+		},{
+			"type":"array",
+			"title":"this is an array inside oneOf.",
+			"minItems":1,
+			"items":{
+				"type":"string",
+				"title":"this is an array string"
+			}
+		},{
+			"type":"boolean",
+			"title":"this is a boolean inside oneOf"
+		}],
+		"output":[]
+	},
+
+	"jsonWithWrongOneOfType":{
+		"input":{
+			"type":"string",
+			"title":"this is string inside oneOf"
+		},
+		"output":[{
+			"message":"oneOf key should be of type array.",
+			"path":[]
+		}]
+	},
+
+	"jsonWithWrongOneOfValues":{
+		"input":[{
+			"type":"string",
+			"title":"this is string inside oneOf"
+		},{
+			"type":"array",
+			"title":"this is an array inside oneOf.",
+			"minItems":1,
+			"items":{
+				"type":"string",
+				"title":"this is an array string"
+			}
+		},"surprise"],
+		"output":[{
+			"message":"2 key of oneOf should be an objects.",
+			"path":[2]
+		}]
+	},
+
+	"jsonWithoutTypeInOneOfOptions":{
+		"input":[{
+			"type":"string",
+			"title":"this is string inside oneOf"
+		},{
+			"type":"array",
+			"title":"this is an array inside oneOf.",
+			"minItems":1,
+			"items":{
+				"type":"string",
+				"title":"this is an array string"
+			}
+		},{
+			"title":"this is a boolean inside oneOf"
+		}],
+		"output":[{
+			"message":"2 Object of oneOf don't have a type.",
+			"path":[2]
+		}]
+	},
+
+	"jsonWithWrongTypeInOneOfOptions":{
+		"input":[{
+			"type":"string",
+			"title":"this is string inside oneOf"
+		},{
+			"type":"array",
+			"title":"this is an array inside oneOf.",
+			"minItems":1,
+			"items":{
+				"type":"string",
+				"title":"this is an array string"
+			}
+		},{
+			"type":"shocking",
+			"title":"this is a boolean inside oneOf"
+		}],
+		"output":[{
+			"message":"2 Object of oneOf don't have a matching type.",
+			"path":[2]
+		}]
+	},
+
+	"jsonWithReferenceField":{
+		"context":{
+			"definitions":{
+				"outer":{
+					"type":"boolean",
+					"title":"this is a boolean inside oneOf"
+				}
+			},
+			"oneOf":[{
+				"type":"string",
+				"title":"this is string inside oneOf"
+			},{
+				"type":"array",
+				"title":"this is an array inside oneOf.",
+				"minItems":1,
+				"items":{
+					"type":"string",
+					"title":"this is an array string"
+				}
+			},{
+				"$ref":"#/definitions/outer"
+			}]
+		},
+		"input":[{
+			"type":"string",
+			"title":"this is string inside oneOf"
+		},{
+			"type":"array",
+			"title":"this is an array inside oneOf.",
+			"minItems":1,
+			"items":{
+				"type":"string",
+				"title":"this is an array string"
+			}
+		},{
+			"$ref":"#/definitions/outer"
+		}],
+		"output":[]
+	},
+
+	"jsonWithReferenceFieldWithWrongReference":{
+		"context":{
+			"definitions":{
+				"outer":{
+					"type":"boolean",
+					"title":"this is a boolean inside oneOf"
+				}
+			},
+			"oneOf":[{
+				"type":"string",
+				"title":"this is string inside oneOf"
+			},{
+				"type":"array",
+				"title":"this is an array inside oneOf.",
+				"minItems":1,
+				"items":{
+					"type":"string",
+					"title":"this is an array string"
+				}
+			},{
+				"$ref":"#/definitions/outer"
+			}]
+		},
+		"input":[{
+			"type":"string",
+			"title":"this is string inside oneOf"
+		},{
+			"type":"array",
+			"title":"this is an array inside oneOf.",
+			"minItems":1,
+			"items":{
+				"type":"string",
+				"title":"this is an array string"
+			}
+		},{
+			"$ref":"/definitions/outer"
+		}],
+		"output":[{
+			"message":"reference /definitions/outer has unsupported format",
+			"path":[2]
+		}]
+	}
+}

@@ -1,0 +1,7 @@
+require('./arrayTest')
+require('./booleanTest')
+require('./integerTest')
+require('./numberTest')
+require('./objectTest')
+require('./oneOfTest')
+require('./stringTest')

@@ -1,0 +1,89 @@
+{
+	"json":{
+		"input":{			
+			"type":"string",
+			"title":"this is a string title",
+			"minLength":1,
+			"default":"guru",
+			"enum":[
+				"guru",
+				"test",
+				"hello"
+			]
+		},
+
+		"output":[]
+	},
+
+	"jsonWithoutTitle":{
+		"input":{			
+			"type":"string",
+			"minLength":1,
+			"default":"guru",
+			"enum":[
+				"guru",
+				"test",
+				"hello"
+			]
+		},
+		"output":[{
+			"message":"type string should have 'title' key.",
+			"path":[]
+		}]
+	},
+
+	"jsonWithWrongDefault":{
+		"input":{
+			"type":"string",
+			"title":"this is a string title",
+			"minLength":1,
+			"default": false,
+			"enum":[
+				"guru",
+				"test",
+				"hello"
+			]
+		},
+		"output":[{
+			"message":"default key should be a string.",
+			"path":[]
+		}]
+	},
+
+	"jsonWithWrongEnumType":{
+		"input":{			
+			"type":"string",
+			"title":"this is a string title",
+			"minLength":1,
+			"default":"guru",
+			"enum":{
+				"guru"  :"guru",
+				"test"  :"test",
+				"hello" :"hello"
+			}
+		},
+		"output":[{
+			"message":"enum key should be an array.",
+			"path":[]
+		}]
+	},
+
+	"jsonWithWrongEnumValue":{
+		"input":{
+			"type":"string",
+			"title":"this is a string title",
+			"minLength":1,
+			"default":"guru",
+			"enum":[
+				"guru",
+				false,
+				"hello"
+			]
+		},
+		"output":[{
+			"message":"1 value of enum should be an string.",
+			"path":["enum",1]
+		}]
+	}
+
+}

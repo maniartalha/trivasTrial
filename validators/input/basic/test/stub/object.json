@@ -1,0 +1,354 @@
+{
+	"json":{
+		"input":{
+			"type":"object",
+			"title":"this is an object.",
+			"properties":{
+				"max":{
+					"type":"integer",
+					"title":"this is an integer in object."
+				},
+				"name":{
+					"type":"string",
+					"title":"this is a string in object."
+				},
+				"ram":{
+					"type":"array",
+					"title":"this is an array type.",
+					"minItems":1,
+					"items":{
+						"type":"string",
+						"title":"this is an array string"
+					}
+				}
+			}
+		},
+		"output":[]
+	},
+
+	"jsonWithoutTitle":{
+		"input":{
+			"type":"object",
+			"properties":{
+				"max":{
+					"type":"integer",
+					"title":"this is an integer in object."
+				},
+				"name":{
+					"type":"string",
+					"title":"this is a string in object."
+				},
+				"ram":{
+					"type":"array",
+					"title":"this is an array type.",
+					"minItems":1,
+					"items":{
+						"type":"string",
+						"title":"this is an array string"
+					}
+				}
+			}
+		},
+		"output":[{
+			"message":"type object should have title key.",
+			"path":[]
+		}]
+	},
+
+	"jsonWithoutProperties":{
+		"input":{
+			"type":"object",
+			"title":"this is an object."
+			
+		},
+		"output":[{
+			"message":"type object should have properties key.",
+			"path":[]
+		}]
+	},
+
+	"jsonWithWrongPropertiesType":{
+		"input":{
+			"type":"object",
+			"title":"this is an object.",
+			"properties":[
+				"jack",
+				"of",
+				"all"
+			]
+		},
+		"output":[{
+			"message":"properties key, in type object should be an object.",
+			"path":[]
+		}]
+	},
+
+	"jsonWithWrongTypeInKeyInProperties":{
+		"input":{
+			"type":"object",
+			"title":"this is an object.",
+			"properties":{
+				"max":{
+					"type":"integer",
+					"title":"this is an integer in object."
+				},
+				"name":[
+					"jack",
+					"of",
+					"all"
+				],
+				"ram":{
+					"type":"array",
+					"title":"this is an array type.",
+					"minItems":1,
+					"items":{
+						"type":"string",
+						"title":"this is an array string"
+					}
+				}
+			}
+		},
+		"output":[{
+			"message":"name in properties should be an object.",
+			"path":["properties","name"]
+		}]
+	},
+
+	"jsonWithoutTypeKeyInPropertiesKey":{
+		"input":{
+			"type":"object",
+			"title":"this is an object.",
+			"properties":{
+				"max":{
+					"type":"integer",
+					"title":"this is an integer in object."
+				},
+				"name":{
+					"title":"this is a string in object."
+				},
+				"ram":{
+					"type":"array",
+					"title":"this is an array type.",
+					"minItems":1,
+					"items":{
+						"type":"string",
+						"title":"this is an array string"
+					}
+				}
+			}
+		},
+		"output":[{
+			"message":"name in properties should have type key.",
+			"path":["properties","name"]
+		}]
+	},
+
+	"jsonWithWrongTypeInPropertiesKey":{
+		"input":{
+			"type":"object",
+			"title":"this is an object.",
+			"properties":{
+				"max":{
+					"type":"integer",
+					"title":"this is an integer in object."
+				},
+				"name":{
+					"type":"something funny",
+					"title":"this is a string in object."
+				},
+				"ram":{
+					"type":"array",
+					"title":"this is an array type.",
+					"minItems":1,
+					"items":{
+						"type":"string",
+						"title":"this is an array string"
+					}
+				}
+			}
+		},
+		"output":[{
+			"message":"name in properties should have a matching type.",
+			"path":["properties","name"]
+		}]
+	},
+
+	"jsonWithReferenceField":{
+		"context":{
+			"definitions":{
+				"name":{
+					"type":"string",
+					"title":"this is a string in object."
+				}
+			},
+			"type":"object",
+			"title":"this is an object.",
+			"properties":{
+				"max":{
+					"type":"integer",
+					"title":"this is an integer in object."
+				},
+				"name":{
+					"$ref":"#/definitions/name"
+				},
+				"ram":{
+					"type":"array",
+					"title":"this is an array type.",
+					"minItems":1,
+					"items":{
+						"type":"string",
+						"title":"this is an array string"
+					}
+				}
+			}
+		},
+		"input":{
+			"type":"object",
+			"title":"this is an object.",
+			"properties":{
+				"max":{
+					"type":"integer",
+					"title":"this is an integer in object."
+				},
+				"name":{
+					"$ref":"#/definitions/name"
+				},
+				"ram":{
+					"type":"array",
+					"title":"this is an array type.",
+					"minItems":1,
+					"items":{
+						"type":"string",
+						"title":"this is an array string"
+					}
+				}
+			}
+		},
+		"output":[]
+
+	},
+
+	"jsonWithReferenceFieldWithWrongReference":{
+		"context":{
+			"definitions":{
+				"name":{
+					"type":"string",
+					"title":"this is a string in object."
+				}
+			},
+			"type":"object",
+			"title":"this is an object.",
+			"properties":{
+				"max":{
+					"type":"integer",
+					"title":"this is an integer in object."
+				},
+				"name":{
+					"$ref":"#/definitions/name"
+				},
+				"ram":{
+					"type":"array",
+					"title":"this is an array type.",
+					"minItems":1,
+					"items":{
+						"type":"string",
+						"title":"this is an array string"
+					}
+				}
+			}
+		},
+		"input":{
+			"type":"object",
+			"title":"this is an object.",
+			"properties":{
+				"max":{
+					"type":"integer",
+					"title":"this is an integer in object."
+				},
+				"name":{
+					"$ref":"#definitions/name"
+				},
+				"ram":{
+					"type":"array",
+					"title":"this is an array type.",
+					"minItems":1,
+					"items":{
+						"type":"string",
+						"title":"this is an array string"
+					}
+				}
+			}
+		},
+		"output":[{
+			"message":"reference #definitions/name has unsupported format",
+			"path":["properties","name"]
+		}]
+	},
+
+	"jsonWithReferenceFieldAndOneOf":{
+		"context":{
+			"definitions":{
+				"name":{
+					"oneOf":[{
+						"type":"string",
+						"title":"this is string inside oneOf"
+						},{
+							"type":"array",
+							"title":"this is an array inside oneOf.",
+							"minItems":1,
+							"items":{
+								"type":"string",
+								"title":"this is an array string"
+							}
+						},{
+							"type":"boolean",
+							"title":"this is a boolean inside oneOf"
+					}]
+				}
+			},
+			"type":"object",
+			"title":"this is an object.",
+			"properties":{
+				"max":{
+					"type":"integer",
+					"title":"this is an integer in object."
+				},
+				"name":{
+					"$ref":"#/definitions/name"
+				},
+				"ram":{
+					"type":"array",
+					"title":"this is an array type.",
+					"minItems":1,
+					"items":{
+						"type":"string",
+						"title":"this is an array string"
+					}
+				}
+			}
+		},
+		"input":{
+			"type":"object",
+			"title":"this is an object.",
+			"properties":{
+				"max":{
+					"type":"integer",
+					"title":"this is an integer in object."
+				},
+				"name":{
+					"$ref":"#/definitions/name"
+				},
+				"ram":{
+					"type":"array",
+					"title":"this is an array type.",
+					"minItems":1,
+					"items":{
+						"type":"string",
+						"title":"this is an array string"
+					}
+				}
+			}
+		},
+		"output":[]
+	}
+}

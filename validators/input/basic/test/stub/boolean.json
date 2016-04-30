@@ -1,0 +1,85 @@
+{
+	"json":{
+		"input":{			
+			"type":"boolean",
+			"title":"this is a boolean title",
+			"minLength":1,
+			"default":false,
+			"enum":[
+				true,
+				false
+			]
+		},
+
+		"output":[]
+	},
+
+	"jsonWithoutTitle":{
+		"input":{			
+			"type":"boolean",
+			"minLength":1,
+			"default":false,
+			"enum":[
+				true,
+				false
+			]
+		},
+		"output":[{
+			"message":"type boolean should have 'title' key.",
+			"path":[]
+		}]
+	},
+
+	"jsonWithWrongDefault":{
+		"input":{
+			"type":"boolean",
+			"title":"this is a boolean title",
+			"minLength":1,
+			"default":"guru",
+			"enum":[
+				true,
+				false
+			]
+		},
+		"output":[{
+			"message":"default key should be a boolean.",
+			"path":[]
+		}]
+	},
+
+	"jsonWithWrongEnumType":{
+		"input":{			
+			"type":"boolean",
+			"title":"this is a boolean title",
+			"minLength":1,
+			"default":false,
+			"enum":{
+				"guru"  :"guru",
+				"test"  :"test",
+				"hello" :"hello"
+			}
+		},
+		"output":[{
+			"message":"enum key should be an array.",
+			"path":[]
+		}]
+	},
+
+	"jsonWithWrongEnumValue":{
+		"input":{
+			"type":"boolean",
+			"title":"this is a boolean title",
+			"minLength":1,
+			"default":false,
+			"enum":[
+				true,
+				"wrong"
+			]
+		},
+		"output":[{
+			"message":"1 value of enum should be an boolean.",
+			"path":["enum",1]
+		}]
+	}
+
+}

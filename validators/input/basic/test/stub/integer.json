@@ -1,0 +1,85 @@
+{
+	"json":{
+		"input":{			
+			"type":"integer",
+			"title":"this is a integer title",
+			"minLength":1,
+			"default":2,
+			"enum":[
+				1,
+				2
+			]
+		},
+
+		"output":[]
+	},
+
+	"jsonWithoutTitle":{
+		"input":{			
+			"type":"integer",
+			"minLength":1,
+			"default":2,
+			"enum":[
+				1,
+				2
+			]
+		},
+		"output":[{
+			"message":"type integer should have 'title' key.",
+			"path":[]
+		}]
+	},
+
+	"jsonWithWrongDefault":{
+		"input":{
+			"type":"integer",
+			"title":"this is a integer title",
+			"minLength":1,
+			"default":1.2,
+			"enum":[
+				1,
+				2
+			]
+		},
+		"output":[{
+			"message":"default key should be a integer.",
+			"path":[]
+		}]
+	},
+
+	"jsonWithWrongEnumType":{
+		"input":{			
+			"type":"integer",
+			"title":"this is a integer title",
+			"minLength":1,
+			"default":2,
+			"enum":{
+				"guru"  :"guru",
+				"test"  :"test",
+				"hello" :"hello"
+			}
+		},
+		"output":[{
+			"message":"enum key should be an array.",
+			"path":[]
+		}]
+	},
+
+	"jsonWithWrongEnumValue":{
+		"input":{
+			"type":"integer",
+			"title":"this is a integer title",
+			"minLength":1,
+			"default":2,
+			"enum":[
+				1,
+				1.3
+			]
+		},
+		"output":[{
+			"message":"1 value of enum should be an integer.",
+			"path":["enum",1]
+		}]
+	}
+
+}
